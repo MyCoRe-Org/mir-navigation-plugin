@@ -12,7 +12,7 @@
       <head>
         <xsl:apply-templates select="citation_meta" mode="copyContent" />
         <link href="{$WebApplicationBaseURL}assets/jquery/plugins/shariff/shariff.min.css" rel="stylesheet" />
-        <script type="text/javascript" src="{$WebApplicationBaseURL}assets/jquery/plugins/dotdotdot/jquery.dotdotdot.min.js" />
+        <script type="text/javascript" src="{$WebApplicationBaseURL}assets/jquery/plugins/shave/jquery.shave.min.js" />
       </head>
 
       <xsl:if test="div[@id='mir-breadcrumb']">
@@ -35,6 +35,9 @@
         </div>
       </xsl:if>
 
+      <!-- DuEPublico publication workflow steps -->
+<!--       <xsl:copy-of select="div[@id='duepublico-workflow']" /> -->
+      
       <!-- Start: MESSAGE -->
       <xsl:if test="div[@id='mir-message']">
         <div class="row detail_row">
@@ -72,13 +75,13 @@
           <!-- End: ABSTRACT -->
           </div>
 
-          <!-- player -->
-          <xsl:if test="div[@id = 'mir-player']">
-            <xsl:apply-templates select="div[@id='mir-player']" mode="copyContent" />
-          </xsl:if>
           <!-- viewer -->
           <xsl:if test="div[@id = 'mir-viewer']">
             <xsl:apply-templates select="div[@id='mir-viewer']" mode="copyContent" />
+          </xsl:if>
+          <!-- player -->
+          <xsl:if test="div[@id = 'mir-player']">
+            <xsl:apply-templates select="div[@id='mir-player']" mode="copyContent" />
           </xsl:if>
           <!-- files -->
           <xsl:if test="div[contains(@id,'mir-collapse-')]">
@@ -112,9 +115,9 @@
 <!-- right column -->
         <div id="aux_col" class="col-xs-12 col-sm-4">
 
-<!-- additional layout components for navigation on journals and series-->
-          <xsl:copy-of select="div[@id='duepublico-series-banner']" />
-          <xsl:copy-of select="div[@id='duepublico-series-layout']" />
+<!-- additional layout components for mir journals and series-->
+          <xsl:copy-of select="div[@id='mir-series-banner']" />
+          <xsl:copy-of select="div[@id='mir-series-layout']" />
 
 <!-- cites -->
           <xsl:if test="div[@id='mir-citation']">
@@ -220,10 +223,16 @@
   </xsl:template>
 
   <xsl:template match="citation_meta" mode="copyContent">
+    <xsl:message>
+      <xsl:value-of select="'Handling citation meta tags'" />
+    </xsl:message>
     <xsl:copy-of select="./*" />
   </xsl:template>
 
   <xsl:template match="div" mode="copyContent">
+    <xsl:message>
+      <xsl:value-of select="concat('Handling div: ',@id)" />
+    </xsl:message>
     <xsl:copy-of select="./*" />
   </xsl:template>
 
