@@ -6,7 +6,7 @@
 >
 
   <xsl:include href="response-mir-utils.xsl" />
-  <xsl:include href="duepublico-series-panel.xsl" />
+  <xsl:include href="mir-series-panel.xsl" />
 
   <xsl:param name="UserAgent" />
   <xsl:param name="MIR.testEnvironment" />
