@@ -35,8 +35,8 @@
         </div>
       </xsl:if>
 
-      <!-- DuEPublico publication workflow steps -->
-<!--       <xsl:copy-of select="div[@id='duepublico-workflow']" /> -->
+      <!-- mir publication workflow steps -->
+       <xsl:copy-of select="div[@id='mir-workflow']" /> 
       
       <!-- Start: MESSAGE -->
       <xsl:if test="div[@id='mir-message']">
