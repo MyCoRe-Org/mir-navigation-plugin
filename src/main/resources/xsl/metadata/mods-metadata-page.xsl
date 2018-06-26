@@ -35,8 +35,8 @@
         </div>
       </xsl:if>
 
-      <!-- mir publication workflow steps -->
-       <xsl:copy-of select="div[@id='mir-workflow']" /> 
+      <!-- DuEPublico publication workflow steps -->
+      <xsl:copy-of select="div[@id='duepublico-workflow']" />
       
       <!-- Start: MESSAGE -->
       <xsl:if test="div[@id='mir-message']">
@@ -115,9 +115,9 @@
 <!-- right column -->
         <div id="aux_col" class="col-xs-12 col-sm-4">
 
-<!-- additional layout components for mir journals and series-->
-          <xsl:copy-of select="div[@id='mir-series-banner']" />
-          <xsl:copy-of select="div[@id='mir-series-layout']" />
+<!-- additional layout components for DuEPublico journals and series-->
+          <xsl:copy-of select="div[@id='duepublico-series-banner']" />
+          <xsl:copy-of select="div[@id='duepublico-series-layout']" />
 
 <!-- cites -->
           <xsl:if test="div[@id='mir-citation']">

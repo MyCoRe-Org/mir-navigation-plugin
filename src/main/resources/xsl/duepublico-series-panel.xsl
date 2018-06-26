@@ -32,7 +32,7 @@
       <xsl:with-param name="rootID" select="$rootID" />
     </xsl:apply-templates>
 
-    <div class="panel panel-default" id="mir-series-layout" style="margin-right:1px; width:100%">
+    <div class="panel panel-default" id="duepublico-series-layout" style="margin-right:1px; width:100%">
       <div class="panel-heading">
         <h3 class="panel-title">
           <xsl:value-of select="label[lang($CurrentLang)]" />
@@ -66,7 +66,7 @@
   <xsl:template match="item/@banner" mode="seriesLayout">
     <xsl:param name="rootID" />
 
-    <div id="mir-series-banner">
+    <div id="duepublico-series-banner">
       <a href="{$WebApplicationBaseURL}receive/{$rootID}">
         <img style="width:340px;" src="{$WebApplicationBaseURL}{.}" alt="Logo {../label[lang($CurrentLang)]}" />
       </a>
