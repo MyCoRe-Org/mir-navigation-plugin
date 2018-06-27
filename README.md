@@ -34,8 +34,8 @@ Reload the core via solr admin web interface
 -> solr entries should provide the extended handling for parent documents now (root field) 
 
 8. Have fun 
--> Add a navigation.xml to the (series/newspaper) root document 
--> Add the files you have referenced via navigation.xml
+-> Add a navigation.xml via file upload to the (series/newspaper) root document 
+-> Add the files via file upload you have referenced via navigation.xml
 
 Example:
 
