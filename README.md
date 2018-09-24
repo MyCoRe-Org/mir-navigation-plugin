@@ -21,15 +21,15 @@ context there is a series layout with a panel that shows the navigation.
 (Windows Systems C:\Users\User\AppData\Local\MyCoRe\mirapplication\lib) <br />
 (Linux Systems /home/user/.mycore/mirapplication/lib)
 
-6. The navigation plugin uses a widen solr handling for parent documents. For this purpose, the plugin brings its own schema extensions. It is necessary to reload the solr schema (for further information have a look on solr mycore documentation (http://www.mycore.de/documentation/search/using_solr.html).
+6. The navigation plugin uses a widen solr handling for parent documents. For this purpose, the plugin brings its own schema extensions. It is necessary to reload the solr schema (for further information have a look on solr mycore documentation http://www.mycore.de/documentation/search/using_solr.html).
 In case of a standard solr core installation (the main core is named „main“) open the mir web cli:
 
 -	run command „reload solr configuration main in core main“
-	o	This command synchronizes the solr main core with the solr schema from this plugin
+	* This command synchronizes the solr main core with the solr schema from this plugin
 -	Reload the mir core with solr webadmin (Core Admin - reload)
-	o	You can do a quick check in the solr webadmin via mir schema menu item (root field should be there now)
+	* You can do a quick check in the solr webadmin via mir schema menu item (root field should be there now)
 -	Reindex solr with the rules from the navigation plugin with command „rebuild solr metadata and content index in core main“
-	o	solr entries should provide the extended handling for parent documents now (root field)
+	* solr entries should provide the extended handling for parent documents now (root field)
 
 
 
