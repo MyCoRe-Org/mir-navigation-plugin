@@ -5,26 +5,21 @@
   <parent>
     <groupId>org.mycore.mir</groupId>
     <artifactId>mir-parent</artifactId>
-    <version>2017.07-SNAPSHOT</version>
+    <version>2018.06.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>mir-navigation-plugin</artifactId>
   <packaging>jar</packaging>
-
+  
+  
   <name>mir-navigation-plugin</name>
-
   <url>http://maven.apache.org</url>
   <description>Navigation on series plugin for MyCoRe/MODS Institutional Repository</description>
 
   <properties>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
     <!-- Java -->
     <java.version>1.8</java.version>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-
-    <powermock.version>1.6.2</powermock.version>
-    <mockito.version>1.10.19</mockito.version>
   </properties>
 
   <repositories>
@@ -51,6 +46,13 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </pluginRepository>
   </pluginRepositories>
+  <distributionManagement>
+    <site>
+      <id>MyCoRe HQ</id>
+      <name>MyCoRe HQ-sites</name>
+      <url>scp://server.mycore.de/mcr/mycore.de/generated/mir${site.suffix}</url>
+    </site>
+  </distributionManagement>
 
   <build>
     <plugins>
@@ -70,5 +72,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
