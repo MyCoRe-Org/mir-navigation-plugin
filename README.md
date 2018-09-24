@@ -6,7 +6,7 @@ parent documents (root field).
 The plugin provides the extended solr handling for series (solr-navigation.xsl). In frontend
 context there is a series layout with a panel that shows the navigation. 
 
-## Installation instructions (As mir-enduser)
+## Installation instructions for mir lts 2018.06 (As mir-enduser)
 
 1. Download the project from this repository and place it on your computer
 
@@ -21,44 +21,15 @@ context there is a series layout with a panel that shows the navigation.
 (Windows Systems C:\Users\User\AppData\Local\MyCoRe\mirapplication\lib) <br />
 (Linux Systems /home/user/.mycore/mirapplication/lib)
 
-6. Readjust solr schema with new root parameter (http://www.mycore.de/documentation/getting_started/solr_7.html)
+6. The navigation plugin uses a widen solr handling for parent documents. For this purpose, the plugin brings its own schema extensions. It is necessary to reload the solr schema (for further information have a look on solr mycore documentation (http://www.mycore.de/documentation/search/using_solr.html).
+In case of a standard solr core installation (the main core is named „main“) open the mir web cli:
 
-Add the following lines to schema.xml 
+-	run command „reload solr configuration main in core main“
+	o	This command synchronizes the solr main core with the solr schema from this plugin
+-	Reload the mir core with solr webadmin (Core Admin - reload)
+	o	You can do a quick check in the solr webadmin via mir schema menu item (root field should be there now)
+-	Reindex solr with the rules from the navigation plugin with command „rebuild solr metadata and content index in core main“
+	o	solr entries should provide the extended handling for parent documents now (root field)
 
-		<field name="root" type="string" /> <!-- up all the ancestors -->
-
-Reload the core via solr admin web interface 
- -> you can do a quickcheck via schema menu item (root field should be there now)
- 
-7. Reindex solr via mir web cli (SOLR Commands -> rebuild solr metadata and content index)
--> solr entries should provide the extended handling for parent documents now (root field) 
-
-8. Have fun 
--> Add a navigation.xml via file upload to the (series/newspaper) root document 
--> Add the files via file upload you have referenced via navigation.xml
-
-Example:
-
-		<item ref="go/exampleSeries/index.xml" banner="go/exampleSeries/banner_sgo.png"
-		  root="true">
-		  <label xml:lang="de">Example on navigaton Series</label>
-		  <label xml:lang="en">Navigationsbeispiel für Series</label>
-		  <item id="exampleSeries/index.xml" ref="go/exampleSeries/index.xml">
-		    <label xml:lang="de">Über uns</label>
-		    <label xml:lang="en">About us</label>
-		  </item>
-		  <item id="exampleSeries/2018/01" ref="go/exampleSeries/2018/01">
-		    <label xml:lang="de">Aktuelles Heft</label>
-		    <label xml:lang="en">Current Issue</label>
-		  </item>
-		  <item id="exampleSeries" ref="go/exampleSeries">
-		    <label xml:lang="de">Archiv</label>
-		    <label xml:lang="en">Archive</label>
-		  </item>
-		  <item id="exampleSeries/impressum.xml" ref="go/exampleSeries/impressum.xml">
-		    <label xml:lang="de">Impressum</label>
-		    <label xml:lang="en">Imprint</label>
-		  </item>
-		</item>
 
 
