@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="1.0"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:mcr="xalan://org.mycore.common.xml.MCRXMLFunctions"
-  xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
-  xmlns:mods="http://www.loc.gov/mods/v3"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  exclude-result-prefixes="i18n mcr mods xlink"
->
-  
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:mcr="xalan://org.mycore.common.xml.MCRXMLFunctions" xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation"
+  xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" exclude-result-prefixes="i18n mcr mods xlink">
+
   <xsl:param name="WebApplicationBaseURL" />
   <xsl:param name="CurrentLang" />
-  
+
   <xsl:template match="mycoreobject" mode="seriesLayout">
     <xsl:apply-templates select="structure/derobjects/derobject[1]/@xlink:href" mode="seriesLayout">
       <xsl:with-param name="rootID" select="@ID" />
@@ -24,7 +19,7 @@
       <xsl:with-param name="rootID" select="$rootID" />
     </xsl:apply-templates>
   </xsl:template>
-  
+
   <xsl:template match="/item" mode="seriesLayout">
     <xsl:param name="rootID" />
 
@@ -65,9 +60,11 @@
         </li>
       </xsl:when>
       <xsl:otherwise>
-        <a href="{@ref}">
-          <xsl:value-of select="label[lang($CurrentLang)]" />
-        </a>
+        <li>
+          <a href="{@ref}">
+            <xsl:value-of select="label[lang($CurrentLang)]" />
+          </a>
+        </li>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -79,7 +76,7 @@
       <a href="{$WebApplicationBaseURL}receive/{$rootID}">
         <img style="width:340px;" src="{$WebApplicationBaseURL}{.}" alt="Logo {../label[lang($CurrentLang)]}" />
       </a>
-    </div>   
+    </div>
   </xsl:template>
 
   <xsl:template name="searchForm">
@@ -91,13 +88,14 @@
         <xsl:text>Suche in </xsl:text>
         <xsl:value-of select="label[lang($CurrentLang)]" />
       </label>
-      <input id="qSeries" type="text" name="fq" class="form-control" style="width:257px" placeholder="Suche in {label[lang($CurrentLang)]}"/>
+      <input id="qSeries" type="text" name="fq" class="form-control" style="width:257px"
+        placeholder="Suche in {label[lang($CurrentLang)]}" />
       <button class="btn btn-primary" type="submit">
         <i class="fa fa-search" />
       </button>
     </form>
   </xsl:template>
-  
+
   <xsl:template name="rssLink">
     <xsl:param name="rootID" />
 
@@ -108,5 +106,5 @@
       </a>
     </li>
   </xsl:template>
-  
+
 </xsl:stylesheet>
