@@ -15,9 +15,7 @@
   <description>Navigation on series plugin for MyCoRe/MODS Institutional Repository</description>
 
   <properties>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
   </properties>
 
   <repositories>
@@ -72,7 +70,6 @@
   </build>
 
   <dependencies>
-
     <!-- mycore dependencies -->
     <dependency>
       <groupId>org.mycore</groupId>
@@ -104,5 +101,4 @@
       <artifactId>jdom2</artifactId>
     </dependency>
   </dependencies>
-
 </project>
