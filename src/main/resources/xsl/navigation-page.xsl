@@ -6,13 +6,34 @@
   xmlns:i18n="xalan://org.mycore.services.i18n.MCRTranslation" xmlns:xalan="http://xml.apache.org/xalan"
   exclude-result-prefixes="xalan i18n">
 
-  <xsl:param name="WebApplicationBaseURL" />
-  <xsl:output method="html" doctype-system="about:legacy-compat" indent="yes" omit-xml-declaration="yes" media-type="text/html"
-    version="5" />
-  <xsl:strip-space elements="*" />
+  <xsl:include href="duepublico-series-panel.xsl" />
+  <xsl:include href="copynodes.xsl" />
 
-  <xsl:template match="/">
-    <xsl:copy-of select="." />
-    <script type="text/javascript" src="{$WebApplicationBaseURL}js/mir-navigation-plugin/mir-navigation.js"></script>
+  <xsl:param name="WebApplicationBaseURL" />
+  <xsl:param name="MCRObjectID" />
+  <xsl:param name="MCRDerivateID" />
+
+  <xsl:template match="/MyCoReWebPage">
+    <xsl:copy>
+      <xsl:copy-of select="@*" />
+
+      <xsl:apply-templates select="*|text()" />
+
+      <xsl:message>
+        -------------------------------
+        <xsl:value-of select="$MCRObjectID" />
+        //
+        <xsl:value-of select="$MCRDerivateID" />
+      </xsl:message>
+
+    
+      <section xml:lang="all">
+        <xsl:apply-templates select="document(concat('notnull:mcrfile:',$MCRDerivateID,'/navigation.xml'))/item"
+          mode="seriesLayout">
+          <xsl:with-param name="rootID" select="$MCRObjectID" />
+        </xsl:apply-templates>
+      </section>
+    </xsl:copy>
   </xsl:template>
+
 </xsl:stylesheet>
