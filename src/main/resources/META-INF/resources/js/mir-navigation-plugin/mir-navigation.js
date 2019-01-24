@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    const restSearch = '/api/v1/search';
     /*
      * get the root navigation document
      */
@@ -13,15 +14,23 @@ $(document).ready(function () {
 
             if (!mycoreObjectId) {
 
-                var currentUrlParts = currentUrl.split('/');
+                if (currentUrl)
 
+                    var currentUrlParts = currentUrl.split('/');
                 currentUrl = currentUrl.replace(currentUrlParts[currentUrlParts.length - 1], '');
 
+                currentUrl = currentUrl.replace(/\/$/, '');
+
                 getCurrentMyCoreObjectId(currentUrl);
+            } else {
+
+                /*
+                 * get the root document
+                 */
+                getRootDocument(mycoreObjectId);
             }
         });
     }
-
 
     function requestXSL(currentUrl) {
 
@@ -29,6 +38,26 @@ $(document).ready(function () {
             url: currentUrl + "?XSL.Style=xml",
             dataType: "xml",
             type: "GET",
+        });
+    }
+
+    function getRootDocument(mycoreObjectId) {
+        requestSolrDocument(mycoreObjectId, 'id:' + mycoreObjectId).then((data) => {
+
+            console.log(data);
+            var mycoreSolrDocumentObj = jQuery.parseJSON(data);
+
+            console.log(mycoreSolrDocumentObj);
+        });
+
+
+    }
+
+    function requestSolrDocument(mycoreObjectId, query) {
+        return $.ajax({
+            url: window.location.origin + restSearch + '?q=' + query + '&wt=json&json.wrf=?',
+            type: "GET",
+            dataType : "jsonp"
         });
     }
 });
