@@ -15,24 +15,23 @@
 
   <xsl:template match="/MyCoReWebPage">
     <xsl:copy>
-      <xsl:copy-of select="@*" />
 
-      <xsl:apply-templates select="*|text()" />
-
-      <xsl:message>
-        -------------------------------
-        <xsl:value-of select="$MCRObjectID" />
-        //
-        <xsl:value-of select="$MCRDerivateID" />
-      </xsl:message>
-
-    
       <section xml:lang="all">
-        <xsl:apply-templates select="document(concat('notnull:mcrfile:',$MCRDerivateID,'/navigation.xml'))/item"
-          mode="seriesLayout">
-          <xsl:with-param name="rootID" select="$MCRObjectID" />
-        </xsl:apply-templates>
+
+        <div class="row detail_row">
+          <div class="col-xs-12 col-sm-8" id="main_col">
+            <xsl:copy-of select="@*" />
+            <xsl:apply-templates select="*|text()" />
+          </div>
+          <div class="col-xs-12 col-sm-4" id="aux_col">
+            <xsl:apply-templates select="document(concat('notnull:mcrfile:',$MCRDerivateID,'/navigation.xml'))/item"
+              mode="seriesLayout">
+              <xsl:with-param name="rootID" select="$MCRObjectID" />
+            </xsl:apply-templates>
+          </div>
+        </div>
       </section>
+
     </xsl:copy>
   </xsl:template>
 
