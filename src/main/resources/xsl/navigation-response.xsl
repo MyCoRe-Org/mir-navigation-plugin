@@ -16,6 +16,10 @@
       <xsl:copy-of select="@*" />
       <xsl:apply-templates select="*|text()" />
 
+      <xsl:message>
+        start debug navigation-response
+      </xsl:message>
+
       <xsl:for-each select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q'][starts-with(.,'root:')]">
         <xsl:variable name="rootID" select="substring-after(.,'root:')" />
         <xsl:apply-templates select="document(concat('notnull:mcrobject:',$rootID))/mycoreobject" mode="seriesLayout" />
