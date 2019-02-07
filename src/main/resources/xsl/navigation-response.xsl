@@ -10,7 +10,7 @@
 
   <xsl:param name="WebApplicationBaseURL" />
 
-  <xsl:template match="/site">
+  <xsl:template match="/response">
 
     <xsl:copy>
       <xsl:copy-of select="@*" />
