@@ -5,12 +5,14 @@
   <parent>
     <groupId>org.mycore.mir</groupId>
     <artifactId>mir-parent</artifactId>
-    <version>2018.11-SNAPSHOT</version>
+    <version>2018.11</version>
   </parent>
   <artifactId>mir-navigation-plugin</artifactId>
   <packaging>jar</packaging>
-
+  
+  
   <name>mir-navigation-plugin</name>
+  <version>2018.11-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <description>Navigation on series plugin for MyCoRe/MODS Institutional Repository</description>
 
