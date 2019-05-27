@@ -55,15 +55,26 @@
       </div>
     </div>
   </xsl:template>
-  
+    
   <xsl:template match="item/item" mode="seriesLayout">
-    <li>
-      <a href="{$WebApplicationBaseURL}{@ref}">
-        <xsl:value-of select="label[lang($CurrentLang)]" />
-      </a>
-    </li>
+    <xsl:choose>
+      <xsl:when test="not(starts-with(@ref, 'http'))">
+        <li>
+          <a href="{$WebApplicationBaseURL}{@ref}">
+            <xsl:value-of select="label[lang($CurrentLang)]" />
+          </a>
+        </li>
+      </xsl:when>
+      <xsl:otherwise>
+        <li>
+          <a href="{@ref}">
+            <xsl:value-of select="label[lang($CurrentLang)]" />
+          </a>
+        </li>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
-
+  
   <xsl:template match="item/@banner" mode="seriesLayout">
     <xsl:param name="rootID" />
 
