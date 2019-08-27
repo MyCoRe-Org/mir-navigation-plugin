@@ -10,14 +10,14 @@
 
   <xsl:template match="mycoreobject">
     <xsl:apply-imports />
-    <xsl:apply-templates select="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[@type='host'][@xlink:href]" mode="rootID" />
+    <xsl:apply-templates select="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[contains('host series',@type)][@xlink:href]" mode="rootID" />
   </xsl:template>
   
   <!-- go up all the ancestors to find ID of root object that has no parent (root of series/journal) -->
-  <xsl:template match="mods:relatedItem[@type='host'][@xlink:href]" mode="rootID">
+  <xsl:template match="mods:relatedItem[contains('host series',@type)][@xlink:href]" mode="rootID">
     <xsl:choose>
-      <xsl:when test="mods:relatedItem[@type='host'][@xlink:href]">
-        <xsl:apply-templates select="mods:relatedItem[@type='host'][@xlink:href]" mode="rootID" />
+      <xsl:when test="mods:relatedItem[contains('host series',@type)][@xlink:href]">
+        <xsl:apply-templates select="mods:relatedItem[contains('host series',@type)][@xlink:href]" mode="rootID" />
       </xsl:when>
       <xsl:otherwise>
         <field name="root">

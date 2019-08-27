@@ -18,8 +18,8 @@
   <xsl:template match="/">
     <xsl:for-each select="/mycoreobject">
       <xsl:choose>
-        <xsl:when test="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[@type='host']">
-          <xsl:apply-templates select="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[@type='host']" mode="seriesLayout" />
+        <xsl:when test="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[contains('host series',@type)]">
+          <xsl:apply-templates select="metadata/def.modsContainer/modsContainer/mods:mods/mods:relatedItem[contains('host series',@type)]" mode="seriesLayout" />
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates select="." mode="seriesLayout" />
@@ -29,10 +29,10 @@
     <xsl:apply-imports />
   </xsl:template>
   
-  <xsl:template match="mods:relatedItem[@type='host'][@xlink:href]" mode="seriesLayout">
+  <xsl:template match="mods:relatedItem[contains('host series',@type)][@xlink:href]" mode="seriesLayout">
     <xsl:choose>
-      <xsl:when test="mods:relatedItem[@type='host'][@xlink:href]">
-        <xsl:apply-templates select="mods:relatedItem[@type='host'][@xlink:href]" mode="seriesLayout" />
+      <xsl:when test="mods:relatedItem[contains('host series',@type)][@xlink:href]">
+        <xsl:apply-templates select="mods:relatedItem[contains('host series',@type)][@xlink:href]" mode="seriesLayout" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates select="document(concat('notnull:mcrobject:',@xlink:href))/mycoreobject" mode="seriesLayout" />
