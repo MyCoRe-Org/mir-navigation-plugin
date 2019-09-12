@@ -29,30 +29,33 @@
   <xsl:template match="/item" mode="seriesLayout">
     <xsl:param name="rootID" />
 
-    <xsl:apply-templates select="@banner" mode="seriesLayout">
-      <xsl:with-param name="rootID" select="$rootID" />
-    </xsl:apply-templates>
+    <div class="card" id="duepublico-series-layout">
+  
+      <a href="{$WebApplicationBaseURL}receive/{$rootID}">
+        <img class="card-img-top" src="{$WebApplicationBaseURL}{@banner}" alt="Logo {../label[lang($CurrentLang)]}" />
+      </a>
 
-    <div class="panel panel-default" id="duepublico-series-layout" style="margin-right:1px; width:100%">
-      <div class="panel-heading">
-        <h3 class="panel-title">
+      <div class="card-header">
+        <h3 class="card-title">
           <xsl:value-of select="label[lang($CurrentLang)]" />
         </h3>
       </div>
-      <div class="panel-body">
-
+      
+      <div class="card-body">
         <ul>
           <xsl:apply-templates select="item" mode="seriesLayout" />
           <xsl:call-template name="rssLink">
             <xsl:with-param name="rootID" select="$rootID" />
           </xsl:call-template>
         </ul>
-
+      </div>
+      
+      <div class="card-footer">
         <xsl:call-template name="searchForm">
           <xsl:with-param name="rootID" select="$rootID" />
         </xsl:call-template>
-
       </div>
+      
     </div>
   </xsl:template>
     
@@ -74,30 +77,24 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
-  <xsl:template match="item/@banner" mode="seriesLayout">
-    <xsl:param name="rootID" />
-
-    <div id="duepublico-series-banner">
-      <a href="{$WebApplicationBaseURL}receive/{$rootID}">
-        <img style="width:340px;" src="{$WebApplicationBaseURL}{.}" alt="Logo {../label[lang($CurrentLang)]}" />
-      </a>
-    </div>   
-  </xsl:template>
 
   <xsl:template name="searchForm">
     <xsl:param name="rootID" />
 
     <form role="search" action="{$ServletsBaseURL}solr/select" method="post" class="form-inline">
       <input type="hidden" name="q" value="root:{$rootID}" />
-      <label class="sr-only" for="qSeries">
-        <xsl:text>Suche in </xsl:text>
-        <xsl:value-of select="label[lang($CurrentLang)]" />
-      </label>
-      <input id="qSeries" type="text" name="fq" class="form-control" style="width:257px" placeholder="Suche in {label[lang($CurrentLang)]}"/>
-      <button class="btn btn-primary" type="submit">
-        <i class="fa fa-search" />
-      </button>
+      <div class="input-group" style="width:100%;">
+        <label class="sr-only input-group-prepend" for="qSeries">
+          <xsl:text>Suche in </xsl:text>
+          <xsl:value-of select="label[lang($CurrentLang)]" />
+        </label>
+        <input id="qSeries" type="text" name="fq" class="form-control" placeholder="Suche in {label[lang($CurrentLang)]}"/>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search" />
+          </button>
+        </div>
+      </div>
     </form>
   </xsl:template>
   
