@@ -29,7 +29,7 @@
   <xsl:template match="/item" mode="seriesLayout">
     <xsl:param name="rootID" />
 
-    <div class="card" id="duepublico-series-layout">
+    <div class="card" id="series-layout">
   
       <a href="{$WebApplicationBaseURL}receive/{$rootID}">
         <img class="card-img-top" src="{$WebApplicationBaseURL}{@banner}" alt="Logo {../label[lang($CurrentLang)]}" />

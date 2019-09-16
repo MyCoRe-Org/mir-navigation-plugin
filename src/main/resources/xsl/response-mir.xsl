@@ -6,7 +6,7 @@
 >
 
   <xsl:include href="response-mir-utils.xsl" />
-  <xsl:include href="duepublico-series-panel.xsl" />
+  <xsl:include href="series-panel.xsl" />
 
   <xsl:param name="UserAgent" />
   <xsl:param name="MIR.testEnvironment" />
@@ -108,7 +108,7 @@
       </div>
       <!-- ENDE: alle zu basket -->
 
-      <!-- DuEPublico series layout panel: show if query includes "root" condition (query limited to objects "below" root ID) -->
+      <!-- series layout panel: show if query includes "root" condition (query limited to objects "below" root ID) -->
       <xsl:for-each select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q'][starts-with(.,'root:')]">
         <xsl:variable name="rootID" select="substring-after(.,'root:')" />
         <xsl:apply-templates select="document(concat('notnull:mcrobject:',$rootID))/mycoreobject" mode="seriesLayout" />
