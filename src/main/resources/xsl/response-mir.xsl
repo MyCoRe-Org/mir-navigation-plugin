@@ -31,54 +31,118 @@
 
     <div class="row result_head">
       <div class="col-12 result_headline">
-        <h2>
+        <h1>
           <xsl:choose>
             <xsl:when test="$hits=0">
-              <xsl:value-of select="i18n:translate('results.noObject')" />.
+              <xsl:value-of select="i18n:translate('results.noObject')" />
             </xsl:when>
             <xsl:when test="$hits=1">
-              <xsl:value-of select="i18n:translate('results.oneObject')" />:
+              <xsl:value-of select="i18n:translate('results.oneObject')" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="i18n:translate('results.nObjects',$hits)" />:
+              <xsl:value-of select="i18n:translate('results.nObjects',$hits)" />
             </xsl:otherwise>
           </xsl:choose>
-        </h2>
+        </h1>
       </div>
     </div>
 
-    <!-- xsl:if test="string-length(/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q']) &gt; 0">
-      <div class="row">
-        <div class="col-12 col-sm-8">
-          <span class="fas fa-remove-circle"></span>
-          <xsl:value-of select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q']" />
+<!-- Suchschlitz mit Suchbegriff, Treffer - Nummer, Vorschau, Autor, Änderungsdatum, Link zu den Details, Filter  -->
+    <div class="row result_searchline">
+      <div class="col-12 col-sm-8 text-center result_search">
+        <div class="search_box">
+          <xsl:variable name="searchlink" select="concat($proxyBaseURL, $HttpSession, $solrParams)" />
+          <form action="{$searchlink}" class="search_form" method="post">
+            <div class="input-group input-group-sm">
+              <div class="input-group-btn input-group-prepend">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" value="all" id="search_type_button">
+                  <span id="search_type_label">
+                    <xsl:value-of select="i18n:translate('mir.dropdown.all')" />
+                  </span>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu search_type">
+                  <li class="dropdown-item">
+                    <a href="#" value="all">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.all')" />
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#" value="mods.title">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.title')" />
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#" value="mods.author">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.author')" />
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#" value="mods.name.top">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.name')" />
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#" value="mods.nameIdentifier">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.nameIdentifier')" />
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#" value="allMeta">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.allMeta')" />
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#" value="content">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.content')" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <xsl:variable name="resolver">
+                <xsl:call-template name="substring-after-last">
+                  <xsl:with-param name="string" select="$proxyBaseURL" />
+                  <xsl:with-param name="delimiter" select="'/'" />
+                </xsl:call-template>
+              </xsl:variable>
+              <xsl:choose>
+                <xsl:when test="$resolver = 'find'">
+                  <xsl:variable name="qry">
+                    <xsl:variable name="encodedQry">
+                      <xsl:call-template name="UrlGetParam">
+                        <xsl:with-param name="url" select="$RequestURL" />
+                        <xsl:with-param name="par" select="'condQuery'" />
+                      </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:value-of select="decoder:decode($encodedQry, 'UTF-8')" />
+                  </xsl:variable>
+                  <xsl:choose>
+                    <xsl:when test="$qry = '*'">
+                      <input class="form-control" name="qry" placeholder="{i18n:translate('mir.placeholder.response.search')}" type="text" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <input class="form-control" name="qry" placeholder="{i18n:translate('mir.placeholder.response.search')}" type="text" value="{$qry}" />
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input class="form-control" name="condQuery" placeholder="{i18n:translate('mir.placeholder.response.search')}" type="text" />
+                </xsl:otherwise>
+              </xsl:choose>
+              <span class="input-group-btn input-group-append">
+                <button class="btn btn-primary" type="submit">
+                  <span class="fas fa-search"></span>
+                   <xsl:value-of select="i18n:translate('editor.search.search')"/>
+                </button>
+              </span>
+            </div>
+          </form>
         </div>
       </div>
-    </xsl:if -->
-
-<!-- Filter, Pagination & Trefferliste -->
-    <xsl:if test="$hits &gt; 0">
-     <div class="row result_body">
-
-      <div class="col-12 col-sm-8 result_list">
-        <xsl:comment>
-          RESULT LIST START
-        </xsl:comment>
-        <div id="hit_list">
-          <xsl:apply-templates select="doc|arr[@name='groups']/lst/str[@name='groupValue']" />
-        </div>
-        <xsl:comment>
-          RESULT LIST END
-        </xsl:comment>
-        <div class="result_list_end" />
-        <xsl:copy-of select="$ResultPages" />
-      </div>
-
-      <div class="col-12 col-sm-4 result_filter">
 
       <!-- START: alle zu basket -->
-      <div class="card">
-        <form class="basket_form" style="margin-top:0; margin-bottom:1rem;" action="{$ServletsBaseURL}MCRBasketServlet{$HttpSession}" method="post">
+      <div class="col-12 col-sm-4">
+        <form class="basket_form" action="{$ServletsBaseURL}MCRBasketServlet{$HttpSession}" method="post">
           <input type="hidden" name="action" value="add" />
           <input type="hidden" name="redirect" value="referer" />
           <input type="hidden" name="type" value="objects" />
@@ -108,12 +172,42 @@
       </div>
       <!-- ENDE: alle zu basket -->
 
-      <!-- series layout panel: show if query includes "root" condition (query limited to objects "below" root ID) -->
-      <xsl:for-each select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q'][starts-with(.,'root:')]">
-        <xsl:variable name="rootID" select="substring-after(.,'root:')" />
-        <xsl:apply-templates select="document(concat('notnull:mcrobject:',$rootID))/mycoreobject" mode="seriesLayout" />
-      </xsl:for-each>
+    </div> <!-- ENDE: Suchschlitz mit Suchbegriff -->
 
+    <!-- xsl:if test="string-length(/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q']) &gt; 0">
+      <div class="row">
+        <div class="col-12 col-sm-8">
+          <span class="fas fa-remove-circle"></span>
+          <xsl:value-of select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q']" />
+        </div>
+      </div>
+    </xsl:if -->
+
+<!-- Filter, Pagination & Trefferliste -->
+    <div class="row result_body">
+
+      <div class="col-12 col-sm-8 result_list">
+        <xsl:comment>
+          RESULT LIST START
+        </xsl:comment>
+        <div id="hit_list">
+          <xsl:apply-templates select="doc|arr[@name='groups']/lst/str[@name='groupValue']" />
+        </div>
+        <xsl:comment>
+          RESULT LIST END
+        </xsl:comment>
+        <div class="result_list_end" />
+        <xsl:copy-of select="$ResultPages" />
+      </div>
+
+      <div class="col-12 col-sm-4 result_filter">
+      
+        <!-- series layout panel: show if query includes "root" condition (query limited to objects "below" root ID) -->
+        <xsl:for-each select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q'][starts-with(.,'root:')]">
+          <xsl:variable name="rootID" select="substring-after(.,'root:')" />
+          <xsl:apply-templates select="document(concat('notnull:mcrobject:',$rootID))/mycoreobject" mode="seriesLayout" />
+        </xsl:for-each>
+        
         <xsl:if test="/response/lst[@name='facet_counts']/lst[@name='facet_fields']/lst[@name='worldReadableComplete']/int">
           <div class="card oa">
             <div class="card-header" data-toggle="collapse-next">
@@ -162,7 +256,6 @@
       </div>
 
     </div>
-   </xsl:if>
   </xsl:template>
 
   <xsl:template match="doc" priority="10" mode="resultList">
@@ -211,8 +304,8 @@
 
     <!-- derivate variables -->
     <xsl:variable name="derivates" select="key('derivate', $identifier)" />
-    <xsl:variable name="derivid" select="$derivates/str[@name='maindoc'][1]/../str[@name='id']" />
-    <xsl:variable name="maindoc" select="$derivates/str[@name='maindoc'][1]" />
+    <xsl:variable name="derivid" select="$derivates/str[@name='derivateMaindoc'][1]/../str[@name='id']" />
+    <xsl:variable name="maindoc" select="$derivates/str[@name='derivateMaindoc'][1]" />
     <xsl:variable name="derivbase" select="concat($ServletsBaseURL,'MCRFileNodeServlet/',$derivid,'/')" />
     <xsl:variable name="derivifs" select="concat($derivbase,$maindoc,$HttpSession)" />
 
@@ -357,9 +450,9 @@
                   </xsl:when>
 
                   <!-- show PDF thumbnail as preview -->
-                  <xsl:when test="translate(str:tokenize($derivates/str[@name='maindoc'][1],'.')[position()=last()],'PDF','pdf') = 'pdf'">
+                  <xsl:when test="translate(str:tokenize($derivates/str[@name='derivateMaindoc'][1],'.')[position()=last()],'PDF','pdf') = 'pdf'">
                     <xsl:variable name="filePath"
-                      select="concat($derivates/str[@name='id'][1],'/',mcr:encodeURIPath($derivates/str[@name='maindoc'][1]),$HttpSession)" />
+                      select="concat($derivates/str[@name='id'][1],'/',mcr:encodeURIPath($derivates/str[@name='derivateMaindoc'][1]),$HttpSession)" />
                     <xsl:variable name="viewerLink">
                       <xsl:choose>
                         <xsl:when test="mcrxsl:isMobileDevice($UserAgent)">
@@ -761,7 +854,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="string-length(normalize-space($searchString))&gt;0">
+    <xsl:if test="string-length(normalize-space($searchString))&gt;0 and $searchString!='*'">
       <xsl:value-of select="concat($join, 'q=', $searchString)" />
     </xsl:if>
   </xsl:template>
