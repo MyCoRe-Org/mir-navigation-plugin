@@ -8,9 +8,9 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   exclude-result-prefixes="i18n mcr mods xlink"
 >
-  <xsl:import href="xslImport:modsmeta:duepublico-series-layout.xsl" />
+  <xsl:import href="xslImport:modsmeta:series-layout.xsl" />
 
-  <xsl:include href="duepublico-series-panel.xsl" />
+  <xsl:include href="series-panel.xsl" />
   
   <xsl:param name="WebApplicationBaseURL" />
   <xsl:param name="CurrentLang" />

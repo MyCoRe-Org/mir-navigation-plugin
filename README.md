@@ -48,8 +48,8 @@ The following example includes the additional navigation for journals and series
         <div id="aux_col" class="col-xs-12 col-sm-4">
 
 <!-- additional layout components for journals and series -->
-        <xsl:copy-of select="div[@id='duepublico-series-banner']" />
-        <xsl:copy-of select="div[@id='duepublico-series-layout']" />
+        <xsl:copy-of select="div[@id='series-banner']" />
+        <xsl:copy-of select="div[@id='series-layout']" />
 
 
 <!-- cites -->

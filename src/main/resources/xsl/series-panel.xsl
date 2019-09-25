@@ -14,7 +14,7 @@
   <xsl:param name="ServletsBaseURL" />
   
   <xsl:template match="mycoreobject" mode="seriesLayout">
-    <xsl:apply-templates select="structure/derobjects/derobject[1]/@xlink:href" mode="seriesLayout">
+    <xsl:apply-templates select="structure/derobjects/derobject[classification[@classid='derivate_types'][@categid='navigation']]/@xlink:href" mode="seriesLayout">
       <xsl:with-param name="rootID" select="@ID" />
     </xsl:apply-templates>
   </xsl:template>
@@ -29,28 +29,33 @@
   <xsl:template match="/item" mode="seriesLayout">
     <xsl:param name="rootID" />
 
-    <xsl:apply-templates select="@banner" mode="seriesLayout">
-      <xsl:with-param name="rootID" select="$rootID" />
-    </xsl:apply-templates>
+    <div id="series-layout">
+  
+      <a href="{$WebApplicationBaseURL}receive/{$rootID}">
+        <img class="card-img-top" src="{$WebApplicationBaseURL}{@banner}" alt="Logo {../label[lang($CurrentLang)]}" />
+      </a>
 
-    <div class="panel panel-default" id="duepublico-series-layout" style="margin-right:1px; width:100%">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <xsl:value-of select="label[lang($CurrentLang)]" />
-        </h3>
-      </div>
-      <div class="panel-body">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <xsl:value-of select="label[lang($CurrentLang)]" />
+          </h3>
+        </div>
+        
+        <div class="card-body">
+          <ul>
+            <xsl:apply-templates select="item" mode="seriesLayout" />
+            <xsl:call-template name="rssLink">
+              <xsl:with-param name="rootID" select="$rootID" />
+            </xsl:call-template>
+          </ul>
+        </div>
 
-        <ul>
-          <xsl:apply-templates select="item" mode="seriesLayout" />
-          <xsl:call-template name="rssLink">
+        <div class="card-footer">
+          <xsl:call-template name="searchForm">
             <xsl:with-param name="rootID" select="$rootID" />
           </xsl:call-template>
-        </ul>
-
-        <xsl:call-template name="searchForm">
-          <xsl:with-param name="rootID" select="$rootID" />
-        </xsl:call-template>
+        </div>
 
       </div>
     </div>
@@ -74,30 +79,24 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
-  <xsl:template match="item/@banner" mode="seriesLayout">
-    <xsl:param name="rootID" />
-
-    <div id="duepublico-series-banner">
-      <a href="{$WebApplicationBaseURL}receive/{$rootID}">
-        <img style="width:340px;" src="{$WebApplicationBaseURL}{.}" alt="Logo {../label[lang($CurrentLang)]}" />
-      </a>
-    </div>   
-  </xsl:template>
 
   <xsl:template name="searchForm">
     <xsl:param name="rootID" />
 
     <form role="search" action="{$ServletsBaseURL}solr/select" method="post" class="form-inline">
       <input type="hidden" name="q" value="root:{$rootID}" />
-      <label class="sr-only" for="qSeries">
-        <xsl:text>Suche in </xsl:text>
-        <xsl:value-of select="label[lang($CurrentLang)]" />
-      </label>
-      <input id="qSeries" type="text" name="fq" class="form-control" style="width:257px" placeholder="Suche in {label[lang($CurrentLang)]}"/>
-      <button class="btn btn-primary" type="submit">
-        <i class="fa fa-search" />
-      </button>
+      <div class="input-group" style="width:100%;">
+        <label class="sr-only input-group-prepend" for="qSeries">
+          <xsl:text>Suche in </xsl:text>
+          <xsl:value-of select="label[lang($CurrentLang)]" />
+        </label>
+        <input id="qSeries" type="text" name="fq" class="form-control" placeholder="Suche in {label[lang($CurrentLang)]}"/>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search" />
+          </button>
+        </div>
+      </div>
     </form>
   </xsl:template>
   
@@ -106,7 +105,7 @@
 
     <li>
       <a href="{$WebApplicationBaseURL}receive/{$rootID}?XSL.Style=rss">
-        <i class="fa fa-rss" />
+        <i class="fas fa-rss" />
         <xsl:text> RSS 2.0 Feed</xsl:text>
       </a>
     </li>
