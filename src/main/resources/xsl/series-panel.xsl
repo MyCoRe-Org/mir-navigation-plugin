@@ -31,11 +31,11 @@
 
     <div id="series-layout">
   
-      <a href="{$WebApplicationBaseURL}receive/{$rootID}">
+      <a class="banner-link" href="{$WebApplicationBaseURL}receive/{$rootID}">
         <img class="card-img-top" src="{$WebApplicationBaseURL}{@banner}" alt="Logo {../label[lang($CurrentLang)]}" />
       </a>
 
-      <div class="card">
+      <div class="card series-card">
         <div class="card-header">
           <h3 class="card-title">
             <xsl:value-of select="label[lang($CurrentLang)]" />
@@ -83,7 +83,7 @@
   <xsl:template name="searchForm">
     <xsl:param name="rootID" />
 
-    <form role="search" action="{$ServletsBaseURL}solr/select" method="post" class="form-inline">
+    <form role="search" action="{$ServletsBaseURL}solr/select" method="post" class="rssfeed-search form-inline">
       <input type="hidden" name="q" value="root:{$rootID}" />
       <div class="input-group" style="width:100%;">
         <label class="sr-only input-group-prepend" for="qSeries">
