@@ -15,7 +15,7 @@
 
   <xsl:include href="resource:xsl/csl-export-gui.xsl" />
   <xsl:include href="resource:xsl/response-facets.xsl"/>
-  <xsl:include href="resource:xsl/response-mir-utils.xsl" /><xsl:include href="series-panel.xsl" />
+  <xsl:include href="resource:xsl/response-mir-utils.xsl" />
   <xsl:include href="resource:xsl/series-panel.xsl" />
 
   <xsl:param name="UserAgent" />
