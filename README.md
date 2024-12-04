@@ -6,7 +6,7 @@ parent documents (root field).
 The plugin provides the extended solr handling for series (solr-navigation.xsl). In frontend
 context there is a series layout with a panel that shows the navigation. 
 
-## Installation instructions for mir lts 2019.06 (As mir-enduser)
+## Installation instructions for mir lts 2023.06 (As mir-enduser)
 
 1. Download the project from this repository and place it on your computer
 
@@ -31,32 +31,17 @@ In case of a standard solr core installation (the main core is named „main“)
 -	Reindex solr with the rules from the navigation plugin with command „rebuild solr metadata and content index in core main“
 	* solr entries should provide the extended handling for parent documents now (root field)
 
+## Requirements for mods document metadata
+The standard implementation identifies derivates as series-navigation relatable if they have set categid="navigation" in derobject classification:
 
-## Understanding xsl file structure for adapt navigation on different pages
-
----- src/main/resources/xsl 
-
-The transformation stylesheet files are located here. 
-
-To include navigation into mycoreobject-modsmeta view it is necessary to overwrite mods-metadata.xsl (.../resources/xsl/metadata/mods-metadata-page.xsl) on mir application customization layer (@see [MIR Installation](https://www.mycore.de/documentation/getting_started/gs_mir_install/)).
-
-The following example includes the additional navigation for journals and series right before the citation container:
-
-```xml
-...
-<!-- right column -->
-        <div id="aux_col" class="col-xs-12 col-sm-4">
-
-<!-- additional layout components for journals and series -->
-        <xsl:copy-of select="div[@id='series-banner']" />
-        <xsl:copy-of select="div[@id='series-layout']" />
+      <derobject inherited="0" xlink:type="locator" xlink:href="mir_derivate_00000001">
+        <order>1</order>
+        <maindoc>index.xml</maindoc>
+        <classification classid="derivate_types" categid="navigation" />
+      </derobject>
 
 
-<!-- cites -->
-...
-````
+## Migrate series navigation in mir
+For adding the series navigation panel in the right corner you have to adapt the MIR.Layout.End property (add series-banner,series-layout):
 
-
-  
-
- 
+`MIR.Layout.End=mir-edit,series-banner,series-layout,mir-citation,mir-thumbnail,mir-epusta,mir-access-rights,mir-export,mir-admindata,mir-historydata`
