@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -11,12 +11,37 @@
   <packaging>jar</packaging>
 
   <name>mir-navigation-plugin</name>
-  <url>http://maven.apache.org</url>
   <description>Navigation on series plugin for MyCoRe/MODS Institutional Repository</description>
+  <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <MCR-Artifact-Id>${project.artifactId}</MCR-Artifact-Id>
+              <MCR-Application-Module>${project.name}</MCR-Application-Module>
+              <Priority>99</Priority>
+              <MCR-Auto-Deploy>true</MCR-Auto-Deploy>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
   <repositories>
     <repository>
@@ -50,41 +75,7 @@
     </site>
   </distributionManagement>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <MCR-Artifact-Id>${project.artifactId}</MCR-Artifact-Id>
-              <MCR-Application-Module>${project.name}</MCR-Application-Module>
-              <Priority>99</Priority>
-              <MCR-Auto-Deploy>true</MCR-Auto-Deploy>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
-    <!-- mycore dependencies -->
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-solr</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mycore</groupId>
-      <artifactId>mycore-mets</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>jakarta.servlet</groupId>
@@ -101,6 +92,15 @@
     <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom2</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mycore</groupId>
+      <artifactId>mycore-mets</artifactId>
+    </dependency>
+    <!-- mycore dependencies -->
+    <dependency>
+      <groupId>org.mycore</groupId>
+      <artifactId>mycore-solr</artifactId>
     </dependency>
   </dependencies>
 </project>
