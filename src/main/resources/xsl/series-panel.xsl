@@ -12,6 +12,7 @@
   <xsl:param name="WebApplicationBaseURL" />
   <xsl:param name="CurrentLang" />
   <xsl:param name="ServletsBaseURL" />
+  <xsl:param name="MIR.Metadata.Navigation.SeriesPanel.RSS.Enabled" />
   
   <xsl:template match="mycoreobject" mode="seriesLayout">
     <xsl:apply-templates select="structure/derobjects/derobject[classification[@classid='derivate_types'][@categid='navigation']]/@xlink:href" mode="seriesLayout">
@@ -45,9 +46,11 @@
         <div class="card-body">
           <ul>
             <xsl:apply-templates select="item" mode="seriesLayout" />
-            <xsl:call-template name="rssLink">
-              <xsl:with-param name="rootID" select="$rootID" />
-            </xsl:call-template>
+            <xsl:if test="$MIR.Metadata.Navigation.SeriesPanel.RSS.Enabled='true'">
+              <xsl:call-template name="rssLink">
+                <xsl:with-param name="rootID" select="$rootID" />
+              </xsl:call-template>
+            </xsl:if>
           </ul>
         </div>
 
