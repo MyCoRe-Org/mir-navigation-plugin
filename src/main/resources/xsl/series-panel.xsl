@@ -30,10 +30,12 @@
     <xsl:param name="rootID" />
 
     <div id="series-layout">
-  
-      <a class="banner-link" href="{$WebApplicationBaseURL}receive/{$rootID}">
-        <img class="card-img-top" src="{$WebApplicationBaseURL}{@banner}" alt="Logo {../label[lang($CurrentLang)]}" />
-      </a>
+
+      <xsl:if test="normalize-space(@banner) != ''">
+        <a class="banner-link" href="{$WebApplicationBaseURL}receive/{$rootID}">
+          <img class="card-img-top" src="{$WebApplicationBaseURL}{@banner}" alt="Logo {../label[lang($CurrentLang)]}" />
+        </a>
+      </xsl:if>
 
       <div class="card series-card">
         <div class="card-header">
