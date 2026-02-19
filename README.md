@@ -49,6 +49,8 @@ Build the JAR file with `mvn clean install` and copy it to `~/.mycore/(dev-)mir/
 
 ### Configure `mycore.properties`
 
+#### Enable navigation on object pages in frontend
+
 To use the plugin, configuration in `~/.mycore/(dev-)mir/mycore.properties` is required.
 The RSS feed requires a `mycoreobject-rss` stylesheet, which is not included by default.
 For historical reasons, the link to the RSS feed is always displayed, but it can be disabled if needed.
@@ -60,6 +62,41 @@ MIR.Layout.End=mir-edit,series-layout,mir-citation,mir-thumbnail,mir-epusta,mir-
 
 # Optional: disable RSS feed.
 MIR.Metadata.Navigation.SeriesPanel.RSS.Enabled=false
+```
+
+#### MyCoReWebPage support
+
+The panel can optionally be rendered within a
+[MyCoReWebPage](https://www.mycore.de/documentation/frontend/frontend_static_content/).
+To enable this, the stylesheet `series-panel-adapter.xsl` is provided.
+The panel can be embedded using a `<series-panel />` element in your MyCoReWebPage.
+When embedding, pay attention to the layout to ensure the panel is formatted correctly.
+
+> ⚠️ Note: The parameters `MCRObjectID` and `MCRDerivateID` must be present in the transformer session to resolve the
+> navigation.
+
+To activate it, add the stylesheet as follows:
+
+```text
+# Add 'series-panel-adapter.xsl' to enable series panel rendering in MyCoReWebPage
+MCR.URIResolver.xslIncludes.MyCoReWebPage=%MCR.URIResolver.xslIncludes.MyCoReWebPage%,series-panel-adapter.xsl
+```
+
+Example MyCoReWebPage with panel and layout:
+
+```xml
+<MyCoReWebPage>
+  <section xml:lang="en" title="Title">
+    <div class="row detail_row">
+      <div class="col-xs-12 col-sm-8">
+        <p>Hello world</p>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <series-panel />
+      </div>
+    </div>
+  </section>
+</MyCoReWebPage>
 ```
 
 ### Reload and rebuild Solr
