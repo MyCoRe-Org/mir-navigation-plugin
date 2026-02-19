@@ -78,7 +78,7 @@ When embedding, pay attention to the layout to ensure the panel is formatted cor
 To activate it, add the stylesheet as follows:
 
 ```text
-# Add 'series-panel-adapter.xsl' to enable series panel rendering in MyCoReWebPage
+# Add 'series-panel-adapter.xsl' to enable series panel rendering in MyCoReWebPage.
 MCR.URIResolver.xslIncludes.MyCoReWebPage=%MCR.URIResolver.xslIncludes.MyCoReWebPage%,series-panel-adapter.xsl
 ```
 
@@ -106,7 +106,7 @@ MyCoReWebPage, a series panel with layout is automatically generated, using the 
 To activate it, add the stylesheet alongside `series-panel-adapter.xsl` as follows:
 
 ```text
-# Add 'series-panel-adapter.xsl' to enable series panel rendering in MyCoReWebPage
+# Add 'series-panel-enricher.xsl' to enable extended series panel rendering in MyCoReWebPage.
 MCR.URIResolver.xslIncludes.MyCoReWebPage=%MCR.URIResolver.xslIncludes.MyCoReWebPage%,series-panel-enricher.xsl,series-panel-adapter.xsl
 ```
 
