@@ -55,8 +55,8 @@ For historical reasons, the link to the RSS feed is always displayed, but it can
 All in all, configure as follows:
 
 ```text
-# Add 'series-banner' and 'series-layout'.
-MIR.Layout.End=mir-edit,series-banner,series-layout,mir-citation,mir-thumbnail,mir-epusta,mir-access-rights,mir-export,mir-admindata,mir-historydata
+# Add 'series-layout'.
+MIR.Layout.End=mir-edit,series-layout,mir-citation,mir-thumbnail,mir-epusta,mir-access-rights,mir-export,mir-admindata,mir-historydata
 
 # Optional: disable RSS feed.
 MIR.Metadata.Navigation.SeriesPanel.RSS.Enabled=false
