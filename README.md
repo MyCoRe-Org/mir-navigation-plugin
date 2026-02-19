@@ -99,6 +99,27 @@ Example MyCoReWebPage with panel and layout:
 </MyCoReWebPage>
 ```
 
+#### Extended MyCoReWebPage support
+
+MyCoReWebPage support can be extended with `series-panel-enricher.xsl`. By setting `render-series-panel="true"` in a 
+MyCoReWebPage, a series panel with layout is automatically generated, using the section’s content.
+To activate it, add the stylesheet alongside `series-panel-adapter.xsl` as follows:
+
+```text
+# Add 'series-panel-adapter.xsl' to enable series panel rendering in MyCoReWebPage
+MCR.URIResolver.xslIncludes.MyCoReWebPage=%MCR.URIResolver.xslIncludes.MyCoReWebPage%,series-panel-enricher.xsl,series-panel-adapter.xsl
+```
+
+Example MyCoReWebPage with automatic panel and layout using `render-series-panel`:
+
+```xml
+<MyCoReWebPage render-series-panel="true">
+  <section xml:lang="en" title="Title">
+    <p>Hello world</p>
+  </section>
+</MyCoReWebPage>
+```
+
 ### Reload and rebuild Solr
 
 The plugin leverages enhanced Solr handling for parent documents.
