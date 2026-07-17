@@ -9,6 +9,7 @@ on:
     branches:
       - 'main'
       - '2023.06.x'
+      - '2023.06.x_fix_mycorewebpage_support'
 
 jobs:
   build:
