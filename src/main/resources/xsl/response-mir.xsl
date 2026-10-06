@@ -17,7 +17,9 @@
   <xsl:include href="resource:xsl/csl-export-gui.xsl" />
   <xsl:include href="resource:xsl/response-facets.xsl"/>
   <xsl:include href="resource:xsl/response-mir-utils.xsl" />
+  <!-- START navigation adaptions -->
   <xsl:include href="resource:xsl/series-panel.xsl" />
+  <!-- END navigation adaptions -->
 
   <xsl:param name="UserAgent" />
   <xsl:param name="MIR.testEnvironment" />
@@ -456,11 +458,13 @@
           </div>
         </div>
 
+        <!-- START navigation adaptions -->
         <!-- series layout panel: show if query includes "root" condition (query limited to objects "below" root ID) -->
         <xsl:for-each select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='q'][starts-with(.,'root:')]">
           <xsl:variable name="root-id" select="substring-after(.,'root:')" />
           <xsl:apply-templates select="document(concat('notnull:mcrobject:',$root-id))/mycoreobject" mode="seriesLayout" />
         </xsl:for-each>
+        <!-- END navigation adaptions -->
 
         <!-- Dynamic facets -->
         <xsl:call-template name="facets" />
