@@ -1,5 +1,31 @@
-/target/
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.mvn/timing.properties
+
+# Eclipse
+.metadata
 .classpath
 .project
-
 .settings/
+.factorypath
+bin/
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+/out/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+*~

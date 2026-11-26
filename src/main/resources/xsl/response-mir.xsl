@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <!-- Suchschlitz mit Suchbegriff, Treffer - Nummer, Vorschau, Autor, Änderungsdatum, Link zu den Details, Filter  -->
+<!-- Suchschlitz mit Suchbegriff, Treffer - Nummer, Vorschau, Autor, Änderungsdatum, Link zu den Details, Filter  -->
     <div class="row result_searchline">
       <div class="col-12 col-sm-8 text-center result_search">
 
@@ -147,6 +147,12 @@
             <!-- Extract part after ':' ('%3A') if $fq is not empty or null -->
             <xsl:variable name="filterQueryValue">
               <xsl:choose>
+                <!-- nameIdentifier search queries mods.nameIdentifier OR mods.nameIdentifier.id (see base.js).
+                     Both fields are searched for backward compatibility, because mods.nameIdentifier.id only
+                     exists with the updated Solr schema. Only the first part is shown in the search field. -->
+                <xsl:when test="contains($fq, ' OR mods.nameIdentifier.id:')">
+                  <xsl:value-of select="substring-after(substring-before($fq, ' OR mods.nameIdentifier.id:'), ':')" />
+                </xsl:when>
                 <xsl:when test="$fq">
                   <xsl:value-of select="substring-after($fq, ':')" />
                 </xsl:when>
@@ -291,7 +297,7 @@
 
                 <!-- Decode the current query -->
                 <xsl:variable name="decodedCurrentQryFromLastRequest"
-                  select="decoder:decode($currentQryFromLastRequest, 'UTF-8')" />
+                              select="decoder:decode($currentQryFromLastRequest, 'UTF-8')" />
 
                 <!-- Get a type of the last request -->
                 <xsl:variable name="lastTypeRequest">
@@ -358,10 +364,10 @@
 
                 <!-- Preparing the current query for the input field (remove all quotes) -->
                 <xsl:variable name="preparedCurrentQryFromLastRequest"
-                  select="translate($decodedCurrentQryFromLastRequest, '&quot;', '')" />
+                              select="translate($decodedCurrentQryFromLastRequest, '&quot;', '')" />
                 <!-- Input element for the second search -->
                 <input class="form-control" id="qry" placeholder="{i18n:translate('mir.placeholder.response.search')}"
-                  type="text" value="{$preparedCurrentQryFromLastRequest}" />
+                       type="text" value="{$preparedCurrentQryFromLastRequest}" />
 
                 <span class="input-group-btn input-group-append">
                   <button class="btn btn-primary" type="submit">
@@ -430,7 +436,7 @@
       </div>
     </xsl:if -->
 
-    <!-- Filter, Pagination & Trefferliste -->
+<!-- Filter, Pagination & Trefferliste -->
     <div class="row result_body">
 
       <div class="col-12 col-sm-8 result_list">
@@ -574,7 +580,7 @@
             <xsl:value-of select="$hitCount" />
           </div>
 
-          <!-- relevance -->
+<!-- relevance -->
           <xsl:variable name="score" select="float[@name='score']" />
           <xsl:if test="$score &gt; 0 and $maxScore &gt; 0">
             <xsl:variable name="relevance" select="($score div $maxScore) * 100" />
@@ -597,7 +603,7 @@
             </div>
           </xsl:if>
 
-          <!-- hit options -->
+<!-- hit options -->
           <xsl:choose>
             <xsl:when test="acl:checkPermission($identifier,'writedb')">
               <div class="hit_options float-right">
@@ -614,7 +620,7 @@
                         <xsl:with-param name="dropdown" select="'true'" />
                       </xsl:call-template>
                     </li>
-                    <!-- direct link to editor -->
+                        <!-- direct link to editor -->
                     <xsl:if test="acl:checkPermission($identifier,'writedb')">
                       <li>
                         <xsl:variable name="editURL">
@@ -627,15 +633,15 @@
                           <xsl:choose>
                             <xsl:when test="string-length($editURL) &gt; 0">
                               <xsl:attribute name="href">
-                                <xsl:value-of select="$editURL" />
-                              </xsl:attribute>
+                                    <xsl:value-of select="$editURL" />
+                                  </xsl:attribute>
                               <span class="fas fa-pencil-alt"></span>
                               <xsl:value-of select="i18n:translate('object.editObject')" />
                             </xsl:when>
                             <xsl:otherwise>
                               <xsl:attribute name="href">
-                                <xsl:value-of select="'#'" />
-                              </xsl:attribute>
+                                    <xsl:value-of select="'#'" />
+                                  </xsl:attribute>
                               <span class="fas fa-pencil-alt"></span>
                               <xsl:value-of select="i18n:translate('object.locked')" />
                             </xsl:otherwise>
@@ -662,11 +668,11 @@
       </div><!-- end row head -->
 
 
-      <!-- hit body -->
+<!-- hit body -->
       <div class="row hit_item_body">
         <div class="col-12">
 
-          <!-- document preview -->
+<!-- document preview -->
           <div class="hit_download_box">
             <xsl:variable name="viewerLink">
               <xsl:choose>
@@ -720,7 +726,7 @@
               <xsl:choose>
                 <!-- when the thumbnail derivate has pdf as maindoc or a iviewFile, then use the iiif api -->
                 <xsl:when
-                  test="$displayDerivate/str[@name='iviewFile'] or translate(str:tokenize($displayDerivate/str[@name='derivateMaindoc'],'.')[position()=last()],'PDF','pdf') = 'pdf'">
+                        test="$displayDerivate/str[@name='iviewFile'] or translate(str:tokenize($displayDerivate/str[@name='derivateMaindoc'],'.')[position()=last()],'PDF','pdf') = 'pdf'">
                   <div class="hit_icon">
                     <xsl:choose>
                       <xsl:when test="not(mcrxsl:isCurrentUserGuestUser())">
@@ -732,7 +738,7 @@
                         <xsl:attribute name="style">
                           <xsl:variable name="apos">'</xsl:variable>
                           <xsl:value-of
-                            select="concat('background-image: url(', $apos, $WebApplicationBaseURL, 'api/iiif/image/v2/thumbnail/', $identifier, '/full/!300,300/0/default.jpg',$apos,')')"/>
+                                  select="concat('background-image: url(', $apos, $WebApplicationBaseURL, 'api/iiif/image/v2/thumbnail/', $identifier, '/full/!300,300/0/default.jpg',$apos,')')"/>
                         </xsl:attribute>
                       </xsl:otherwise>
                     </xsl:choose>
@@ -744,10 +750,10 @@
                 </xsl:when>
                 <xsl:otherwise>
                   <div class="hit_icon"
-                    style="background-image: url('{$WebApplicationBaseURL}images/icons/icon_common.png');"/>
+                       style="background-image: url('{$WebApplicationBaseURL}images/icons/icon_common.png');"/>
                   <!-- if not, then the content type decides a icon -->
                   <xsl:variable name="contentType"
-                    select="document(concat('ifs:/',$derivid))/mcr_directory/children/child[name=$maindoc]/contentType"/>
+                                select="document(concat('ifs:/',$derivid))/mcr_directory/children/child[name=$maindoc]/contentType"/>
                   <xsl:variable name="iconLink">
                     <xsl:call-template name="iconLink">
                       <xsl:with-param name="baseURL" select="$WebApplicationBaseURL"/>
@@ -773,7 +779,7 @@
 
           </div>
 
-          <!-- hit type -->
+<!-- hit type -->
           <div class="hit_tnd_container">
             <div class="hit_tnd_content">
               <xsl:apply-imports/>
@@ -783,15 +789,15 @@
             </div>
           </div>
 
-          <!-- hit headline -->
+<!-- hit headline -->
           <h3 class="hit_title">
             <a href="{$hitHref}">
               <xsl:attribute name="title">
-                <xsl:value-of select="./str[@name='mods.title.main']" />
-                <xsl:if test="./str[@name='mods.title.subtitle']">
-                  <xsl:value-of select="concat(' : ', ./str[@name='mods.title.subtitle'])" />
-                </xsl:if>
-              </xsl:attribute>
+                    <xsl:value-of select="./str[@name='mods.title.main']" />
+                    <xsl:if test="./str[@name='mods.title.subtitle']">
+                      <xsl:value-of select="concat(' : ', ./str[@name='mods.title.subtitle'])" />
+                    </xsl:if>
+                  </xsl:attribute>
               <xsl:choose>
                 <xsl:when test="./str[@name='search_result_link_text']">
                   <xsl:value-of select="./str[@name='search_result_link_text']" />
@@ -806,7 +812,7 @@
             </a>
           </h3>
 
-          <!-- hit author -->
+<!-- hit author -->
           <xsl:if
             test="arr[@name='mods.nameByRole.personal.aut'] or arr[@name='mods.nameByRole.personal.edt'] or arr[@name='mods.nameByRole.corporate.pbl'] or arr[@name='mods.nameByRole.corporate.edt']"
           >
@@ -880,7 +886,7 @@
             </div>
           </xsl:if>
 
-          <!-- hit parent -->
+<!-- hit parent -->
           <xsl:if test="./str[@name='parent']">
             <div class="hit_source">
               <span class="label_parent">aus: </span>
@@ -900,7 +906,7 @@
             </div>
           </xsl:if>
 
-          <!-- hit abstract -->
+<!-- hit abstract -->
           <xsl:variable name="description">
             <xsl:choose>
               <xsl:when test="arr[@name=concat('mods.abstract.result.', $CurrentLang)]/str">
@@ -917,7 +923,7 @@
             </div>
           </xsl:if>
 
-          <!-- hit publisher -->
+<!-- hit publisher -->
           <xsl:if test="arr[@name='mods.publisher']">
             <div class="hit_pub_name">
               <xsl:variable name="date">
@@ -968,7 +974,7 @@
     <xsl:variable name="searchString">
       <xsl:variable name="queryPrefix" select="'{!join from=returnId to=id}+content:'" />
       <xsl:variable name="fullTextQuery"
-        select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='fq' and contains(., $queryPrefix)]" />
+                    select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='fq' and contains(., $queryPrefix)]" />
       <xsl:choose>
         <xsl:when test="$fullTextQuery">
           <xsl:value-of select="substring-after($fullTextQuery, $queryPrefix)" />
@@ -993,7 +999,7 @@
     <xsl:param name="collection" select="''" />
     <xsl:choose>
       <xsl:when test="mcrxsl:resourceAvailable('actionmappings.xml')">
-        <!-- URL mapping enabled -->
+      <!-- URL mapping enabled -->
         <xsl:variable name="url">
           <xsl:choose>
             <xsl:when test="string-length($collection) &gt; 0">
@@ -1030,7 +1036,7 @@
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-        <!-- URL mapping disabled -->
+      <!-- URL mapping disabled -->
         <xsl:choose>
           <xsl:when test="$layout != '$'">
             <xsl:value-of select="concat($WebApplicationBaseURL,'/editor/editor-dynamic.xed?id=',$id,'&amp;genre=article&amp;host=standalone')" />
