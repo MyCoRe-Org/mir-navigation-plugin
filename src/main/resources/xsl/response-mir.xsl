@@ -181,77 +181,75 @@
               <input type="hidden" id="owner" name="owner" value="{$owner}"/>
               <input type="hidden" id="version" name="version" value="{$version}"/>
 
-              <div class="input-group input-group-sm">
-
+              <div class="input-group">
                 <!-- Dropdown for the filter query (select mods) -->
-                <div class="input-group-btn input-group-prepend">
-                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" value="{$initialSelectMods}" id="select_mods">
-                    <span id="select_mods_label">
-                      <xsl:choose>
-                        <xsl:when test="$initialSelectMods = 'mods.title'">
-                          <xsl:value-of select="i18n:translate('mir.dropdown.title')" />
-                        </xsl:when>
-                        <xsl:when test="$initialSelectMods = 'mods.author'">
-                          <xsl:value-of select="i18n:translate('mir.dropdown.author')" />
-                        </xsl:when>
-                        <xsl:when test="$initialSelectMods = 'mods.name.top'">
-                          <xsl:value-of select="i18n:translate('mir.dropdown.name')" />
-                        </xsl:when>
-                        <xsl:when test="$initialSelectMods = 'mods.nameIdentifier'">
-                          <xsl:value-of select="i18n:translate('mir.dropdown.nameIdentifier')" />
-                        </xsl:when>
-                        <xsl:when test="$initialSelectMods = 'allMeta'">
-                          <xsl:value-of select="i18n:translate('mir.dropdown.allMeta')" />
-                        </xsl:when>
-                        <xsl:when test="$initialSelectMods = 'content'">
-                          <xsl:value-of select="i18n:translate('mir.dropdown.content')" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:value-of select="i18n:translate('mir.dropdown.all')" />
-                        </xsl:otherwise>
-                      </xsl:choose>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        value="{$initialSelectMods}" id="select_mods">
+                  <span id="select_mods_label">
+                    <xsl:choose>
+                      <xsl:when test="$initialSelectMods = 'mods.title'">
+                        <xsl:value-of select="i18n:translate('mir.dropdown.title')"/>
+                      </xsl:when>
+                      <xsl:when test="$initialSelectMods = 'mods.author'">
+                        <xsl:value-of select="i18n:translate('mir.dropdown.author')"/>
+                      </xsl:when>
+                      <xsl:when test="$initialSelectMods = 'mods.name.top'">
+                        <xsl:value-of select="i18n:translate('mir.dropdown.name')"/>
+                      </xsl:when>
+                      <xsl:when test="$initialSelectMods = 'mods.nameIdentifier'">
+                        <xsl:value-of select="i18n:translate('mir.dropdown.nameIdentifier')"/>
+                      </xsl:when>
+                      <xsl:when test="$initialSelectMods = 'allMeta'">
+                        <xsl:value-of select="i18n:translate('mir.dropdown.allMeta')"/>
+                      </xsl:when>
+                      <xsl:when test="$initialSelectMods = 'content'">
+                        <xsl:value-of select="i18n:translate('mir.dropdown.content')"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="i18n:translate('mir.dropdown.all')"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
 
-                    </span>
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu select_mods_type">
-                    <li>
-                      <a href="#" value="all" class="dropdown-item">
-                        <xsl:value-of select="i18n:translate('mir.dropdown.all')" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" value="mods.title" class="dropdown-item">
-                        <xsl:value-of select="i18n:translate('mir.dropdown.title')" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" value="mods.author" class="dropdown-item">
-                        <xsl:value-of select="i18n:translate('mir.dropdown.author')" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" value="mods.name.top" class="dropdown-item">
-                        <xsl:value-of select="i18n:translate('mir.dropdown.name')" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" value="mods.nameIdentifier" class="dropdown-item">
-                        <xsl:value-of select="i18n:translate('mir.dropdown.nameIdentifier')" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" value="allMeta" class="dropdown-item">
-                        <xsl:value-of select="i18n:translate('mir.dropdown.allMeta')" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" value="content" class="dropdown-item">
-                        <xsl:value-of select="i18n:translate('mir.dropdown.content')" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                  </span>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu select_mods_type">
+                  <li>
+                    <a href="#" value="all" class="dropdown-item">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.all')"/>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" value="mods.title" class="dropdown-item">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.title')"/>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" value="mods.author" class="dropdown-item">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.author')"/>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" value="mods.name.top" class="dropdown-item">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.name')"/>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" value="mods.nameIdentifier" class="dropdown-item">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.nameIdentifier')"/>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" value="allMeta" class="dropdown-item">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.allMeta')"/>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" value="content" class="dropdown-item">
+                      <xsl:value-of select="i18n:translate('mir.dropdown.content')"/>
+                    </a>
+                  </li>
+                </ul>
 
                 <xsl:variable name="resolver">
                   <xsl:call-template name="substring-after-last">
@@ -369,12 +367,10 @@
                 <input class="form-control" id="qry" placeholder="{i18n:translate('mir.placeholder.response.search')}"
                        type="text" value="{$preparedCurrentQryFromLastRequest}" />
 
-                <span class="input-group-btn input-group-append">
-                  <button class="btn btn-primary" type="submit">
-                    <span class="fas fa-search"></span>
-                    <xsl:value-of select="i18n:translate('editor.search.search')"/>
-                  </button>
-                </span>
+                <button class="btn btn-primary" type="submit">
+                  <span class="fas fa-search"></span>
+                  <xsl:value-of select="i18n:translate('editor.search.search')"/>
+                </button>
               </div>
             </form>
           </div>
@@ -606,14 +602,14 @@
 <!-- hit options -->
           <xsl:choose>
             <xsl:when test="acl:checkPermission($identifier,'writedb')">
-              <div class="hit_options float-right">
+              <div class="hit_options float-end">
                 <div class="btn-group">
-                  <a data-toggle="dropdown" class="btn btn-secondary dropdown-toggle" href="#">
+                  <a data-bs-toggle="dropdown" class="btn btn-secondary dropdown-toggle" href="#">
                     <i class="fas fa-cog"></i>
                     <xsl:value-of select="concat(' ',i18n:translate('mir.actions'))" />
                     <span class="caret"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-right">
+                  <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                       <xsl:call-template name="basketLink">
                         <xsl:with-param name="identifier" select="$identifier" />
@@ -654,7 +650,7 @@
               </div>
             </xsl:when>
             <xsl:otherwise>
-              <div class="single_hit_option float-right">
+              <div class="single_hit_option float-end">
                 <xsl:call-template name="basketLink">
                   <xsl:with-param name="identifier" select="$identifier" />
                   <xsl:with-param name="dropdown" select="'false'" />
@@ -781,8 +777,8 @@
 
 <!-- hit type -->
           <div class="hit_tnd_container">
-            <div class="hit_tnd_content">
-              <xsl:apply-imports/>
+            <div class="hit_tnd_content mir-badge-container">
+              <xsl:apply-templates select="." mode="badge"/>
               <xsl:if test="string-length($MCR.ORCID.OAuth.ClientSecret) &gt; 0">
                 <div class="orcid-status" data-id="{$identifier}" />
               </xsl:if>
@@ -1054,7 +1050,7 @@
     <xsl:param name="i18nKey" />
     <div class="card">
       <xsl:variable name="classiDocument" select="document(concat('xslStyle:items2options:classification:editor:-1:children:',$classId))" />
-      <div class="card-header" data-toggle="collapse-next">
+      <div class="card-header" data-mcr-toggle="collapse-next">
         <h3 class="card-title">
           <xsl:value-of select="i18n:translate($i18nKey)" />
         </h3>
@@ -1068,12 +1064,12 @@
           </div>
         </xsl:if>
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle col-12" type="button" data-toggle="dropdown">
+          <button class="btn btn-secondary dropdown-toggle col-12" type="button" data-bs-toggle="dropdown">
             <!--Filter-->
             <xsl:value-of select="i18n:translate('mir.response.button.filter')" />
             <span class="caret" />
           </button>
-          <ul class="dropdown-menu dropdown-menu-right" role="menu" style="max-height: 500px; overflow-y: scroll;">
+          <ul class="dropdown-menu dropdown-menu-end" role="menu" style="max-height: 500px; overflow-y: scroll;">
             <xsl:apply-templates select="$classiDocument/select/option" mode="calculate_option_notselected">
               <xsl:with-param name="classId" select="$classId" />
             </xsl:apply-templates>
@@ -1143,7 +1139,7 @@
 
   <xsl:template name="print.dateFilter">
     <div class="card mir-search-options-date">
-      <div class="card-header" data-toggle="collapse-next">
+      <div class="card-header" data-mcr-toggle="collapse-next">
         <h3 class="card-title">
           <xsl:value-of select="i18n:translate('component.mods.metaData.dictionary.dateIssued')" />
         </h3>
@@ -1170,15 +1166,15 @@
           </div>
         </xsl:if>
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle col-12" type="button" data-toggle="dropdown">
+          <button class="btn btn-secondary dropdown-toggle col-12" type="button" data-bs-toggle="dropdown">
             <!--Filter-->
             <xsl:value-of select="i18n:translate('mir.response.button.filter')" />
             <span class="caret" />
           </button>
-          <div class="dropdown-menu dropdown-menu-right stopAutoclose col-md-12 mir-date-arrowTop" role="menu">
+          <div class="dropdown-menu dropdown-menu-end stopAutoclose col-md-12 mir-date-arrowTop" role="menu">
             <div class="container-fluid">
-              <div class="col-md-12 form-group">
-                <select class="form-control">
+              <div class="col-md-12 mir-form-group">
+                <select class="form-control form-select">
                   <option value="=">=</option>
                   <option value="&gt;">&gt;</option>
                   <option value="&gt;=">&gt;=</option>
@@ -1186,7 +1182,7 @@
                   <option value="&lt;=">&lt;=</option>
                 </select>
               </div>
-              <div class="col-md-12 form-group dateContainer">
+              <div class="col-md-12 mir-form-group dateContainer">
                 <div class="col-md-4">
                   <input class="form-control" placeholder="DD" type="number" min="1" max="31" style="padding: 0.4em" />
                 </div>
@@ -1197,7 +1193,7 @@
                   <input class="form-control" placeholder="YYYY" type="number" min="1000" max="2050" style="padding: 0.1em" />
                 </div>
               </div>
-              <div class="col-md-12 form-group">
+              <div class="col-md-12 mir-form-group">
                 <input id="dateSearch" type="button" class="btn btn-secondary form-control" value="Go!" />
               </div>
             </div>

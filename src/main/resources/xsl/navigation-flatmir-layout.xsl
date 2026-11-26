@@ -12,11 +12,11 @@
     <xsl:copy>
       <section xml:lang="all">
         <div class="row detail_row">
-          <div class="col-xs-12 col-sm-8" id="main_col">
+          <div class="col-12 col-sm-8" id="main_col">
             <xsl:copy-of select="@*" />
             <xsl:apply-templates select="*|text()" />
           </div>
-          <div class="col-xs-12 col-sm-4" id="aux_col">
+          <div class="col-12 col-sm-4" id="aux_col">
             <xsl:call-template name="resolve-navigation-and-render-series-panel">
               <xsl:with-param name="root-object-id" select="$MCRObjectID" />
               <xsl:with-param name="derivate-id" select="$MCRDerivateID" />

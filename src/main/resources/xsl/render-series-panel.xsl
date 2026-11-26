@@ -82,24 +82,22 @@
 
   <xsl:template name="render-search-form">
     <xsl:param name="root-object-id" />
-    <form role="search" action="{$ServletsBaseURL}solr/select" method="post" class="rssfeed-search form-inline">
+    <form role="search" action="{$ServletsBaseURL}solr/select" method="post" class="rssfeed-search">
       <input type="hidden" name="q" value="root:{$root-object-id}" />
-      <div class="input-group" style="width:100%;">
-        <label class="sr-only input-group-prepend" for="qSeries">
-          <xsl:text>Suche in </xsl:text>
-          <xsl:value-of select="label[lang($CurrentLang)]" />
-        </label>
+      <label class="visually-hidden" for="qSeries">
+        <xsl:text>Suche in </xsl:text>
+        <xsl:value-of select="label[lang($CurrentLang)]" />
+      </label>
+      <div class="input-group">
         <input
           id="qSeries"
           type="text"
           name="fq"
           class="form-control"
           placeholder="Suche in {label[lang($CurrentLang)]}" />
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">
-            <i class="fas fa-search" />
-          </button>
-        </div>
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-search" />
+        </button>
       </div>
     </form>
   </xsl:template>
